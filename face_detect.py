@@ -1,11 +1,17 @@
+# -*- coding: utf-8 -*-
+# Detect face and cutting out it 
+
 import cv2
 
 cascade_path = "~/.pyenv/versions/anaconda3-4.2.0/share/OpenCV/haarcascades/haarcascade_frontalface_alt.xml"
 
 def detectFace(image)
+    # gray scale for loading image easily
     image_gray = cv2.cvtColor(image, cv2.cv.CV_BGR2GRAY)
+    # equalizeing for changing image clearly
     image_gray = cv2.equalizeHist(image_gray)
 
+    # using cascade classifier
     cascade = cv2.CascadeClassifier(cascade_path)
     facerect = detectMultiScale(image_gray, scaleFactor=1.1, minNeighbors=3, minSize=(50, 50))
 
