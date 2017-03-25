@@ -20,10 +20,12 @@ def getDataSet():
     y_train = []
     y_test = []
 
+    # create training data and test data
     for i in range(0, 2):
         path = ""
         imgList = os.listdir(path + str(i))
         imgNum = len(imgList)
+        # train : test = 4 : 1
         cutNum = imgNum - imgNum / 5
         for j in range(len(imgList)):
             imgSrc = cv2.imread(path + str(i) + "/" + imgList[j])
@@ -39,18 +41,27 @@ def getDataSet():
 
 def train():
     X_train, y_train, X_test, y_test = getDataSet()
+    # change type for chainer
+    # astype method changes data type to float32 in this case
+    # reshape method changes data type to float32 in this case
     X_train = np.array(X_train).astype(np.float32).reshape((len(X_train), 3, 50, 50)) / 255
     y_train = np.array(y_train).astype(np.int32)
-    X_test = np.array(X_test).astype(np.float32).reshape((len(X_test), 50, 50)) / 255
+    X_test = np.array(X_test).astype(np.float32).reshape((len(X_test), 3, 50, 50)) / 255
     y_test = np.array(y_test).astype(np.int32)
 
     model = clf_image()
+    # Adam is one of optimization way
+    # we have another ways of optimizations
     optimizer = optimizer.Adam()
+    # set up model
     optimizer.setup(model)
 
+    # each values
     epochNum = 5
     batchNum = 50
     epoch = 1
+
+    # epoch means 
 
     while epoch <= epochNum
         print("epoch: {}".format(epoch))
